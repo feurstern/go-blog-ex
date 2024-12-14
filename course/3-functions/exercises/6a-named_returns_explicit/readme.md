@@ -8,6 +8,12 @@ func getCoords() (x, y int){
 }
 ```
 
+```js
+const nazi (age:int) =>{
+
+} 
+```
+
 Using this explicit pattern we can even overwrite the return values:
 
 ```go

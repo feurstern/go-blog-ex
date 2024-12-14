@@ -14,7 +14,7 @@ func main() {
 	totalMsgLength := len(strMessage)
 	totalPay := priceText * float64(totalMsgLength)
 
-	fmt.Printf("total pay %2f", totalPay)
+	fmt.Printf("total pay %.2f", totalPay)
 	fmt.Println(strMessage)
 
 	if messageLen <= maxMessageLen {
