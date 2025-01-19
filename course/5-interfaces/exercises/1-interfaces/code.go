@@ -6,11 +6,41 @@ import (
 )
 
 func sendMessage(msg message) {
-	// ?
+	fmt.Println("Th birth date :", msg.getMessage())
 }
 
 type message interface {
-	// ?
+	getMessage() string
+}
+
+type mathOperation interface {
+	addition() int
+	// substraction() int
+	// multiply() int
+}
+
+func result(c mathOperation) {
+	fmt.Println(c.addition())
+	// fmt.Println(c.substraction())
+	// fmt.Println(c.multiply())
+}
+
+type mathOperator struct {
+	x int
+	y int
+	z int
+}
+
+func (c mathOperator) addition() int {
+	return c.x + c.y + c.z
+}
+
+func (c mathOperator) subsraction() int {
+	return c.x - c.y - c.z
+}
+
+func (c mathOperator) multiply() int {
+	return c.x * c.y * c.z
 }
 
 // don't edit below this line
@@ -43,16 +73,23 @@ func main() {
 		reportName:    "First Report",
 		numberOfSends: 10,
 	})
+
+	result(mathOperator{
+		x: 10,
+		z: 2,
+		y: 3,
+	})
+
 	test(birthdayMessage{
 		recipientName: "John Doe",
 		birthdayTime:  time.Date(1994, 03, 21, 0, 0, 0, 0, time.UTC),
 	})
-	test(sendingReport{
-		reportName:    "First Report",
-		numberOfSends: 10,
-	})
-	test(birthdayMessage{
-		recipientName: "Bill Deer",
-		birthdayTime:  time.Date(1934, 05, 01, 0, 0, 0, 0, time.UTC),
-	})
+	// test(sendingReport{
+	// 	reportName:    "First Report",
+	// 	numberOfSends: 10,
+	// })
+	// test(birthdayMessage{
+	// 	recipientName: "Bill Deer",
+	// 	birthdayTime:  time.Date(1934, 05, 01, 0, 0, 0, 0, time.UTC),
+	// })
 }
