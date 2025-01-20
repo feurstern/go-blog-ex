@@ -43,6 +43,22 @@ func (c mathOperator) multiply() int {
 	return c.x * c.y * c.z
 }
 
+type user struct {
+	firstName, lastname string
+}
+
+func (u user) fullName() string {
+	return u.firstName + " " + u.lastname
+}
+
+type userInformation interface {
+	fullName() string
+}
+
+func showUser(c userInformation) {
+	fmt.Printf("The user firstname: %s \n", c.fullName())
+}
+
 // don't edit below this line
 
 type birthdayMessage struct {
@@ -69,16 +85,18 @@ func test(m message) {
 }
 
 func main() {
-	test(sendingReport{
-		reportName:    "First Report",
-		numberOfSends: 10,
-	})
+	// test(sendingReport{
+	// 	reportName:    "First Report",
+	// 	numberOfSends: 10,
+	// })
 
-	result(mathOperator{
-		x: 10,
-		z: 2,
-		y: 3,
-	})
+	// result(mathOperator{
+	// 	x: 10,
+	// 	z: 2,
+	// 	y: 3,
+	// })
+
+	showUser(user{firstName: "Hatsune", lastname: "Miku"})
 
 	test(birthdayMessage{
 		recipientName: "John Doe",

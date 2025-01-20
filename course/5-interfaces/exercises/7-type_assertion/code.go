@@ -4,8 +4,19 @@ import (
 	"fmt"
 )
 
-func getExpenseReport(e expense) (string, float64) {
-	// ?
+func getExpenseReport(e expense) (string, float64, string) {
+	c, ok := e.(email)
+
+	if ok {
+		return c.toAddress, c.cost(), "nice"
+	}
+
+	s, ok := e.(sms)
+
+	if ok {
+		return s.toPhoneNumber, s.cost(), "nice"
+	}
+	return "", 0.0, "err"
 }
 
 // don't touch below this line
@@ -26,6 +37,28 @@ func (s sms) cost() float64 {
 
 func (i invalid) cost() float64 {
 	return 0.0
+}
+
+func (u user) fullName() string {
+	return u.firstName + " " + u.lastName
+}
+
+func userInfo(e showUser) (string, int) {
+	c, ok := e.(user)
+
+	if ok {
+		return c.firstName + " " + c.lastName, c.age
+	}
+	return "", 0
+}
+
+type showUser interface {
+	fullName() string
+}
+
+type user struct {
+	firstName, lastName string
+	age                 int
 }
 
 type expense interface {
@@ -50,8 +83,15 @@ func estimateYearlyCost(e expense, averageMessagesPerYear int) float64 {
 	return e.cost() * float64(averageMessagesPerYear)
 }
 
+func displayUser(u user) {
+	// fmt.Printf("FUllname : %s", u.fullName())
+	fullName, age := userInfo(u)
+
+	fmt.Printf("Fullname: %s Age : %d", fullName, age)
+}
+
 func test(e expense) {
-	address, cost := getExpenseReport(e)
+	address, cost, t := getExpenseReport(e)
 	switch e.(type) {
 	case email:
 		fmt.Printf("Report: The email going to %s will cost: %.2f\n", address, cost)
@@ -60,7 +100,7 @@ func test(e expense) {
 		fmt.Printf("Report: The sms going to %s will cost: %.2f\n", address, cost)
 		fmt.Println("====================================")
 	default:
-		fmt.Println("Report: Invalid expense")
+		fmt.Printf("Report: Invalid expense :%s \n", t)
 		fmt.Println("====================================")
 	}
 }
@@ -71,25 +111,27 @@ func main() {
 		body:         "hello there",
 		toAddress:    "john@does.com",
 	})
-	test(email{
-		isSubscribed: false,
-		body:         "This meeting could have been an email",
-		toAddress:    "jane@doe.com",
-	})
-	test(email{
-		isSubscribed: false,
-		body:         "This meeting could have been an email",
-		toAddress:    "elon@doe.com",
-	})
-	test(sms{
-		isSubscribed:  false,
-		body:          "This meeting could have been an email",
-		toPhoneNumber: "+155555509832",
-	})
-	test(sms{
-		isSubscribed:  false,
-		body:          "This meeting could have been an email",
-		toPhoneNumber: "+155555504444",
-	})
-	test(invalid{})
+
+	displayUser(user{firstName: "hatsune", lastName: "miku", age: 17})
+	// test(email{
+	// 	isSubscribed: false,
+	// 	body:         "This meeting could have been an email",
+	// 	toAddress:    "jane@doe.com",
+	// })
+	// test(email{
+	// 	isSubscribed: false,
+	// 	body:         "This meeting could have been an email",
+	// 	toAddress:    "elon@doe.com",
+	// })
+	// test(sms{
+	// 	isSubscribed:  false,
+	// 	body:          "This meeting could have been an email",
+	// 	toPhoneNumber: "+155555509832",
+	// })
+	// test(sms{
+	// 	isSubscribed:  false,
+	// 	body:          "This meeting could have been an email",
+	// 	toPhoneNumber: "+155555504444",
+	// })
+	// test(invalid{})
 }
