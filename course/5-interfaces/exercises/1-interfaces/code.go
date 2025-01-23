@@ -47,8 +47,17 @@ type user struct {
 	firstName, lastname string
 }
 
+type employee struct {
+	firstName, lastname string
+	age                 int
+}
+
 func (u user) fullName() string {
 	return u.firstName + " " + u.lastname
+}
+
+func (e employee) fullName() string {
+	return e.firstName + " " + e.lastname
 }
 
 type userInformation interface {
@@ -96,8 +105,8 @@ func main() {
 	// 	y: 3,
 	// })
 
-	showUser(user{firstName: "Hatsune", lastname: "Miku"})
-
+	// showUser(user{firstName: "Hatsune", lastname: "Miku"})
+	showUser(employee{firstName: "miku", lastname: "hatsune", age: 23})
 	test(birthdayMessage{
 		recipientName: "John Doe",
 		birthdayTime:  time.Date(1994, 03, 21, 0, 0, 0, 0, time.UTC),

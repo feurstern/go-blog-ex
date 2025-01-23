@@ -32,6 +32,7 @@ type email struct {
 	body         string
 }
 
+// thiss is the interface
 func print(p printer) {
 	p.print()
 }

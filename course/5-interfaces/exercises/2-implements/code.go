@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 )
 
 type employee interface {
@@ -121,32 +120,32 @@ func main() {
 		salary: 50000,
 	})
 
-	showCurrentPosition(axis2d{
-		x: 4,
-		y: 10,
-	})
-
-	showCurrentPosition(axis3d{
-		x: rand.Intn(100),
-		y: rand.Intn(100),
-		z: rand.Intn(100),
-	})
-
-	showCurrentPosition(axisDiagonal{
-		xNegative: rand.Intn(200),
-		xPostive:  rand.Intn(200),
-		yNegative: rand.Intn(100),
-		yPositive: rand.Intn(200),
-	})
-
-	// test(contractor{
-	// 	name:         "Bob",
-	// 	hourlyPay:    100,
-	// 	hoursPerYear: 73,
+	// showCurrentPosition(axis2d{
+	// 	x: 4,
+	// 	y: 10,
 	// })
-	// test(contractor{
-	// 	name:         "Jill",
-	// 	hourlyPay:    872,
-	// 	hoursPerYear: 982,
+
+	// showCurrentPosition(axis3d{
+	// 	x: rand.Intn(100),
+	// 	y: rand.Intn(100),
+	// 	z: rand.Intn(100),
 	// })
+
+	// showCurrentPosition(axisDiagonal{
+	// 	xNegative: rand.Intn(200),
+	// 	xPostive:  rand.Intn(200),
+	// 	yNegative: rand.Intn(100),
+	// 	yPositive: rand.Intn(200),
+	// })
+
+	test(contractor{
+		name:         "Bob",
+		hourlyPay:    100,
+		hoursPerYear: 73,
+	})
+	test(contractor{
+		name:         "Jill",
+		hourlyPay:    872,
+		hoursPerYear: 982,
+	})
 }

@@ -106,6 +106,14 @@ func test(e expense) {
 }
 
 func main() {
+
+	e := email{
+		isSubscribed: true,
+		body:         "The sun will eventually die when it run out fuel as hidrogen",
+		toAddress:    "naziincolour123@gmail.com",
+	}
+
+	test(e)
 	test(email{
 		isSubscribed: true,
 		body:         "hello there",
